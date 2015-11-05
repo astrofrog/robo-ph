@@ -109,6 +109,8 @@ class Article(object):
             authors = ', '.join(self.authors[:3]) + ', and {0} other author'.format(len(self.authors) - 3)
             if len(self.authors) > 4:
                 authors += "s"
+        elif len(self.authors) == 2:
+            authors = ' and '.join(self.authors)
         else:
             authors = ', '.join(self.authors)
         return "[[slnc 250]] {0}\n[[slnc 1000]] By {1}.[[slnc 1000]] \n{2} [[slnc 1000]] ".format(self.title, authors, self.text)

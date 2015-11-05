@@ -87,7 +87,7 @@ length = speak(text, voice, os.path.join(directory, 'outro.aiff'))
 add_chapter(file_meta, 'Outro', length)
 file_list.write("file 'outro.aiff'\n")
 
-text = "[[slnc 3000]] Kill. all. humans."
+text = "[[slnc 3000]] Kill all humans."
 length = speak(text, 'Bruce', os.path.join(directory, 'epilogue.aiff'))
 add_chapter(file_meta, 'Epilogue', length)
 file_list.write("file 'epilogue.aiff'\n")
