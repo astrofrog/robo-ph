@@ -1,9 +1,13 @@
 import os
+import glob
+import shutil
 import random
 import datetime
 import subprocess
 
-from roboph import Article, VOICES, get_latest_articles, speak, BANNER
+from roboph import VOICES, get_latest_articles, speak, BANNER
+
+DROPBOX_DIR = os.path.expanduser("~/Dropbox/Public/robo-ph/")
 
 print(BANNER)
 
@@ -90,10 +94,35 @@ print("Adding chapters")
 subprocess.call('ffmpeg -i {0}/combined.mp3 -i {0}/metadata -map_metadata 1 -c:a copy -id3v2_version 3 -write_id3v1 1 {0}/combined2.mp3'.format(directory), shell=True, stdout=f_log, stderr=f_log)
 
 print("Converting to M4A")
-subprocess.call('ffmpeg -i {0}/combined2.mp3 -strict -2  {0}.m4a'.format(directory), shell=True, stdout=f_log, stderr=f_log)
+subprocess.call('ffmpeg -i {0}/combined2.mp3 -strict -2  {1}.m4a'.format(directory, date), shell=True, stdout=f_log, stderr=f_log)
 
 print("Adding album art")
 subprocess.call('AtomicParsley {0}/combined2.m4a --artwork robo-ph-cover_art.jpg', shell=True, stdout=f_log, stderr=f_log)
 subprocess.call('AtomicParsley {0}/combined2.m4a --artwork robo-ph-cover_art.jpg --overWrite', shell=True, stdout=f_log, stderr=f_log)
 
 f_log.close()
+
+def concatenate_files(filenames, output_file):
+    with open(output_file, 'w') as fout:
+        for filename in filenames:
+            with open(filename, 'r') as fin:
+                fout.write(fin.read())
+
+print("Creating RSS entry")
+
+# Get GMT publication date
+now = datetime.datetime.utcnow()  # GMT
+pubdate = now.strftime("%a, %-d %b %Y %H:%M:%S GMT")
+
+# Get duration in minutes:seconds
+delta = datetime.timedelta(seconds=total_length / 1000)
+duration = (datetime.datetime(1900,1,1) + delta).strftime("%H:%M:%S")
+
+template = open('rss/template.rss', 'r').read()
+with open('rss/{0}.rss'.format(date), 'w') as f:
+    f.write(template.format(date=date, filename=date + '.m4a', pubdate=pubdate, duration=duration))
+
+concatenate_files(['rss/header.rss'] + sorted(glob.glob('rss/????-??-??.rss')) + ['rss/footer.rss'], 'rss/combined.rss')
+
+shutil.copy(date + '.m4a', os.path.join(DROPBOX_DIR, date + '.m4a'))
+shutil.copy('rss/combined.rss', os.path.join(DROPBOX_DIR, 'roboph.rss'))
