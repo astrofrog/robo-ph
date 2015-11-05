@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<rss xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" version="2.0">
+
+<channel>
+
+<title>robo-ph</title>
+
+<link>http://www.robo-ph.com</link>
+
+<language>en-AU</language>
+
+<copyright>J.E.G. Peek, Thomas Robitaille, Katie Mack and Arna Karick</copyright>
+
+<itunes:subtitle>astro-ph, but robotic</itunes:subtitle>
+
+<itunes:author>J.E.G. Peek, Thomas Robitaille, Katie Mack and Arna Karick</itunes:author>
+
+<itunes:summary>robo-ph reads you astro-ph, abstract by abstract.</itunes:summary>
+
+<description>robo-ph reads you astro-ph, abstract by abstract.</description>
+
+<itunes:owner>
+
+<itunes:name>J.E.G. Peek, Thomas Robitaille, Katie Mack and Arna Karick</itunes:name>
+
+<itunes:email>jegpeek@stsci.edu</itunes:email>
+
+</itunes:owner>
+
+<itunes:image href="https://raw.githubusercontent.com/astrofrog/robo-ph/master/robo-ph-cover_art.jpg" />
+
+<itunes:category text="Science &amp; Medicine">
+
+<itunes:category text="Natural Sciences"/>
+
+</itunes:category>
+<item>
+
+<title>robo-ph: 2015-11-05</title>
+
+<itunes:author>J.E.G. Peek, Thomas Robitaille, Katie Mack and Arna Karick</itunes:author>
+
+<itunes:subtitle></itunes:subtitle>
+
+<itunes:summary><![CDATA[Titles and abstracts for 2015-11-05]]></itunes:summary>
+
+<itunes:image href="https://raw.githubusercontent.com/astrofrog/robo-ph/master/robo-ph-cover_art.jpg" />
+
+<enclosure url="https://dl.dropboxusercontent.com/u/3770121/robo-ph/2015-11-05.m4a?dl=1" length="8727310" type="audio/x-m4a" />
+
+<guid>https://dl.dropboxusercontent.com/u/3770121/robo-ph/2015-11-05.m4a?dl=1</guid>
+
+<pubDate>Thu, 5 Nov 2015 11:00:06 GMT</pubDate>
+
+<itunes:duration>02:04:29</itunes:duration>
+
+</item>
+
+</channel>
+
+</rss>
