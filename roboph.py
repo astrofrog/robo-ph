@@ -1,7 +1,9 @@
 from __future__ import unicode_literals, print_function, division
 
+import os
 import aifc
 import requests
+import subprocess
 from AppKit import NSSpeechSynthesizer, NSURL
 import xml.etree.ElementTree as ElementTree
 from bs4 import BeautifulSoup
@@ -10,6 +12,24 @@ VALID_VOICES = [str(x.replace('com.apple.speech.synthesis.voice.', '')) for x in
 VOICES =['lee.premium', 'fiona.premium', 'emily.premium', 'Alex', 'tom.premium', 'jill.premium', 'sangeeta.premium']
 
 ARXIV_URL = "http://export.arxiv.org/rss/astro-ph"
+
+JINGLE = {
+    '[astro-ph.CO]': 'jingles/CO.aiff',
+    '[astro-ph.EP]': 'jingles/EP.aiff',
+    '[astro-ph.GA]': 'jingles/GA.aiff',
+    '[astro-ph.HE]': 'jingles/HE.aiff',
+    '[astro-ph.IM]': 'jingles/IM.aiff',
+    '[astro-ph.SR]': 'jingles/SR.aiff',
+}
+
+def add_jingle(output_file, subject):
+    jingle = JINGLE.get(subject, JINGLE['[astro-ph.CO]'])
+    with open('tmp_list', 'w') as file_list:
+        file_list.write("file '{0}'\n".format(jingle))
+        file_list.write("file '{0}'\n".format(output_file))
+    with open('tmp_log', 'w') as f_log:
+        subprocess.call('ffmpeg -f concat -i tmp_list tmp.aiff', shell=True, stdout=f_log, stderr=f_log)
+    os.rename('tmp.aiff', output_file)
 
 
 def get_latest_articles():
@@ -28,7 +48,7 @@ def get_latest_articles():
             continue
 
         # Parse out identifier and categories
-        article.identifier, article.subjects = info.split()[0:2]
+        article.identifier, article.subject = info.split()[0:2]
 
         # Clean up identifier
         article.identifier = article.identifier.replace('arXiv:', '').split('v')[0]
@@ -40,17 +60,17 @@ def get_latest_articles():
         article.text = BeautifulSoup(article_xml.find('{http://purl.org/rss/1.0/}description').text, "html.parser").getText().strip()
 
         articles.append(article)
-        
+
     return articles
 
 
 class Article(object):
 
-    def __init__(self, title=None, identifier=None, authors=None, subjects=None, text=None):
+    def __init__(self, title=None, identifier=None, authors=None, subject=None, text=None):
         self.title = title
         self.identifier = identifier
         self.authors = authors
-        self.subjects = subjects
+        self.subject = subject
         self.text = text
 
     def __str__(self):
@@ -64,11 +84,12 @@ class Article(object):
                 authors += "s"
         else:
             authors = ', '.join(self.authors)
-        return "[[slnc 1000]] {0}\n[[slnc 1000]] By {1}.[[slnc 1000]] \n{2} [[slnc 1000]] ".format(self.title, authors, self.text)
+        return "[[slnc 250]] {0}\n[[slnc 1000]] By {1}.[[slnc 1000]] \n{2} [[slnc 1000]] ".format(self.title, authors, self.text)
 
     def to_audio_file(self, output_file, voice):
-        return speak(self.text_to_read, voice, output_file)
-
+        speak(self.text_to_read, voice, output_file)
+        add_jingle(output_file, self.subject)
+        return find_aiff_length_ms(output_file)
 
 def find_aiff_length_ms(output_file):
     f = aifc.open(bytes(output_file))
@@ -76,7 +97,7 @@ def find_aiff_length_ms(output_file):
 
 
 def speak(text, voice, output_file):
-    
+
     if not voice in VALID_VOICES:
         raise ValueError("Invalid voice, should be one of {0}".format(VOICES))
 
@@ -86,10 +107,10 @@ def speak(text, voice, output_file):
     ve.startSpeakingString_toURL_(text, NSURL.fileURLWithPath_(output_file))
     while ve.isSpeaking():
         pass
-        
+
     return find_aiff_length_ms(output_file)
-    
-    
+
+
 BANNER = """MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNmMMMMNho+yMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMmdhysooosNMy:`.NMMNh` :MMMMMMMMMMMMMMM

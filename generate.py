@@ -63,7 +63,7 @@ file_meta = open(os.path.join(directory, 'metadata'), 'w')
 
 file_meta.write(HEADER.format(date=date, track=track, year=year))
 
-text = "Welcome to robo p h, we have {0} papers today, so let's get started!".format(len(latest_articles))
+text = "Welcome to robo p h, we have {0} papers today, so let's get started! [[slnc 2000]]".format(len(latest_articles))
 voice = random.choice(VOICES)
 length = speak(text, voice, os.path.join(directory, 'intro.aiff'))
 add_chapter(file_meta, 'Intro', length)
@@ -104,11 +104,11 @@ print("Adding chapters")
 subprocess.call('ffmpeg -i {0}/combined.mp3 -i {0}/metadata -map_metadata 1 -c:a copy -id3v2_version 3 -write_id3v1 1 {0}/combined2.mp3'.format(directory), shell=True, stdout=f_log, stderr=f_log)
 
 print("Converting to M4A")
-subprocess.call('ffmpeg -i {0}/combined2.mp3 -strict -2  {1}.m4a'.format(directory, date), shell=True, stdout=f_log, stderr=f_log)
+subprocess.call('ffmpeg -i {0}/combined2.mp3 -strict -2  -b:a 50k {1}.m4a'.format(directory, date), shell=True, stdout=f_log, stderr=f_log)
 
 print("Adding album art")
-subprocess.call('AtomicParsley {0}.m4a --artwork robo-ph-cover_art.jpg', shell=True, stdout=f_log, stderr=f_log)
-subprocess.call('AtomicParsley {0}.m4a --artwork robo-ph-cover_art.jpg --overWrite', shell=True, stdout=f_log, stderr=f_log)
+subprocess.call('AtomicParsley {0}.m4a --artwork robo-ph-cover_art.jpg'.format(date), shell=True, stdout=f_log, stderr=f_log)
+subprocess.call('AtomicParsley {0}.m4a --artwork robo-ph-cover_art.jpg --overWrite'.format(date), shell=True, stdout=f_log, stderr=f_log)
 
 f_log.close()
 
