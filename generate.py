@@ -3,7 +3,9 @@ import random
 import datetime
 import subprocess
 
-from roboph import Article, VOICES, get_latest_articles, speak
+from roboph import Article, VOICES, get_latest_articles, speak, BANNER
+
+print(BANNER)
 
 track = 1
 now = datetime.datetime.now()
@@ -18,6 +20,9 @@ if os.path.exists(directory):
     raise ValueError("Directory {0} already exists".format(directory))
 else:
     os.mkdir(directory)
+
+if os.path.exists(directory + 'm4a'):
+    raise ValueError("File {0} already exists".format(directory + 'm4a'))
 
 HEADER = """;FFMETADATA1
 title=robo-ph: {date}
