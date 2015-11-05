@@ -30,6 +30,9 @@ def get_latest_articles():
         # Parse out identifier and categories
         article.identifier, article.subjects = info.split()[0:2]
 
+        # Clean up identifier
+        article.identifier = article.identifier.replace('arXiv:', '').split('v')[0]
+
         # Parse authors
         article.authors = BeautifulSoup(article_xml.find('{http://purl.org/dc/elements/1.1/}creator').text, "html.parser").getText().split(', ')
 
@@ -56,12 +59,12 @@ class Article(object):
     @property
     def text_to_read(self):
         if len(self.authors) > 3:
-            authors = ', '.join(self.authors) + ', and {0} other author'.format(len(self.authors) - 3)
+            authors = ', '.join(self.authors[:3]) + ', and {0} other author'.format(len(self.authors) - 3)
             if len(self.authors) > 4:
                 authors += "s"
         else:
             authors = ', '.join(self.authors)
-        return "{0}\nBy {1}.\n{2}".format(self.title, authors, self.text)
+        return "[[slnc 1000]] {0}\n[[slnc 1000]] By {1}.[[slnc 1000]] \n{2} [[slnc 1000]] ".format(self.title, authors, self.text)
 
     def to_audio_file(self, output_file, voice):
         return speak(self.text_to_read, voice, output_file)

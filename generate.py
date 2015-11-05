@@ -17,9 +17,6 @@ date = now.strftime("%Y-%m-%d")
 year = now.year
 directory = date
 
-print("Getting latest articles")
-latest_articles = get_latest_articles()
-
 if os.path.exists(directory):
     raise ValueError("Directory {0} already exists".format(directory))
 else:
@@ -52,6 +49,12 @@ def add_chapter(fileobj, title, length):
     global total_length
     fileobj.write(CHAPTER.format(start=int(total_length), end=int(total_length + length), title=title))
     total_length += length
+
+print("Getting latest articles")
+latest_articles = get_latest_articles()
+
+print("Randomizing")
+random.shuffle(latest_articles)
 
 print("Producing audio files")
 
