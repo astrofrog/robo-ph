@@ -63,17 +63,16 @@ class Article(object):
             authors = ', '.join(self.authors)
         return "{0}\nBy {1}.\n{2}".format(self.title, authors, self.text)
 
-    def to_audio_file(self, output_file, voice, log=None):
-        speak(self.text_to_read, voice, output_file, log=log)
+    def to_audio_file(self, output_file, voice):
+        return speak(self.text_to_read, voice, output_file)
 
 
 def find_aiff_length_ms(output_file):
     f = aifc.open(bytes(output_file))
     return f.getnframes() / f.getframerate() * 1000.
-    f.close()
 
 
-def speak(text, voice, output_file, log=None):
+def speak(text, voice, output_file):
     
     if not voice in VALID_VOICES:
         raise ValueError("Invalid voice, should be one of {0}".format(VOICES))
@@ -85,5 +84,4 @@ def speak(text, voice, output_file, log=None):
     while ve.isSpeaking():
         pass
         
-    if not log is None:
-        log.write('{0} {1}\n'.format(output_file, find_aiff_length_ms(output_file)))
+    return find_aiff_length_ms(output_file)
