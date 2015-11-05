@@ -1,6 +1,8 @@
 About
 =====
 
+![robo-ph](robo-ph-cover_art.jpg)
+
 Requirements
 ============
 
