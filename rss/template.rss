@@ -1,6 +1,6 @@
 <item>
 
-<title>robo-ph: {date}</title>
+<title>go-the-ph-to-sleep: {date}</title>
 
 <itunes:author>J.E.G. Peek, Thomas Robitaille, Katie Mack and Arna Karick</itunes:author>
 
@@ -8,11 +8,11 @@
 
 <itunes:summary><![CDATA[Titles and abstracts for {date}]]></itunes:summary>
 
-<itunes:image href="https://raw.githubusercontent.com/astrofrog/robo-ph/master/robo-ph-cover_art.jpg" />
+<itunes:image href="https://raw.githubusercontent.com/astrofrog/robo-ph/go-the-ph-to-sleep/gothephtosleep-cover_art.jpg" />
 
-<enclosure url="https://dl.dropboxusercontent.com/u/3770121/robo-ph/{filename}?dl=1" length="8727310" type="audio/x-m4a" />
+<enclosure url="https://dl.dropboxusercontent.com/u/3770121/go-the-ph-to-sleep/{filename}?dl=1" length="8727310" type="audio/x-m4a" />
 
-<guid>https://dl.dropboxusercontent.com/u/3770121/robo-ph/{filename}?dl=1</guid>
+<guid>https://dl.dropboxusercontent.com/u/3770121/go-the-ph-to-sleep/{filename}?dl=1</guid>
 
 <pubDate>{pubdate}</pubDate>
 

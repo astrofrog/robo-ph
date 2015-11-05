@@ -12,13 +12,13 @@
 
 <copyright>J.E.G. Peek, Thomas Robitaille, Katie Mack and Arna Karick</copyright>
 
-<itunes:subtitle>astro-ph, but robotic</itunes:subtitle>
+<itunes:subtitle>astro-ph, but robotic, and soporific.</itunes:subtitle>
 
 <itunes:author>J.E.G. Peek, Thomas Robitaille, Katie Mack and Arna Karick</itunes:author>
 
-<itunes:summary>robo-ph reads you astro-ph, abstract by abstract.</itunes:summary>
+<itunes:summary>go-the-ph-to-sleep reads you astro-ph, abstract by abstract, until you fall asleep.</itunes:summary>
 
-<description>robo-ph reads you astro-ph, abstract by abstract.</description>
+<description>go-the-ph-to-sleep reads you astro-ph, abstract by abstract, until you fall asleep.</description>
 
 <itunes:owner>
 
@@ -28,7 +28,7 @@
 
 </itunes:owner>
 
-<itunes:image href="https://raw.githubusercontent.com/astrofrog/robo-ph/master/robo-ph-cover_art.jpg" />
+<itunes:image href="https://raw.githubusercontent.com/astrofrog/robo-ph/go-the-ph-to-sleep/gothephtosleep-cover_art.jpg" />
 
 <itunes:category text="Science &amp; Medicine">
 

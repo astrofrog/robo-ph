@@ -9,28 +9,9 @@ import xml.etree.ElementTree as ElementTree
 from bs4 import BeautifulSoup
 
 VALID_VOICES = [str(x.replace('com.apple.speech.synthesis.voice.', '')) for x in NSSpeechSynthesizer.availableVoices()]
-VOICES =['lee.premium', 'fiona.premium', 'emily.premium', 'Alex', 'tom.premium', 'jill.premium', 'sangeeta.premium']
+VOICES =['daniel.premium']
 
 ARXIV_URL = "http://export.arxiv.org/rss/astro-ph"
-
-JINGLE = {
-    '[astro-ph.CO]': 'jingles/CO.aiff',
-    '[astro-ph.EP]': 'jingles/EP.aiff',
-    '[astro-ph.GA]': 'jingles/GA.aiff',
-    '[astro-ph.HE]': 'jingles/HE.aiff',
-    '[astro-ph.IM]': 'jingles/IM.aiff',
-    '[astro-ph.SR]': 'jingles/SR.aiff',
-    'other': 'jingles/other.aiff',
-}
-
-def add_jingle(output_file, subject):
-    jingle = JINGLE.get(subject, JINGLE['other'])
-    with open('tmp_list', 'w') as file_list:
-        file_list.write("file '{0}'\n".format(jingle))
-        file_list.write("file '{0}'\n".format(output_file))
-    with open('tmp_log', 'w') as f_log:
-        subprocess.call('ffmpeg -f concat -i tmp_list tmp.aiff', shell=True, stdout=f_log, stderr=f_log)
-    os.rename('tmp.aiff', output_file)
 
 
 def get_latest_articles():
@@ -115,7 +96,6 @@ class Article(object):
 
     def to_audio_file(self, output_file, voice):
         speak(self.text_to_read, voice, output_file)
-        add_jingle(output_file, self.subject)
         return find_aiff_length_ms(output_file)
 
 def find_aiff_length_ms(output_file):

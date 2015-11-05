@@ -7,7 +7,7 @@ import subprocess
 
 from roboph import VOICES, get_latest_articles, speak, BANNER
 
-DROPBOX_DIR = os.path.expanduser("~/Dropbox/Public/robo-ph/")
+DROPBOX_DIR = os.path.expanduser("~/Dropbox/Public/go-the-ph-to-sleep/")
 
 print(BANNER)
 
@@ -26,9 +26,9 @@ if os.path.exists(directory + 'm4a'):
     raise ValueError("File {0} already exists".format(directory + 'm4a'))
 
 HEADER = """;FFMETADATA1
-title=robo-ph: {date}
-artist=robo-ph
-album=robo-ph
+title=go-the-ph-to-sleep: {date}
+artist=go-the-ph-to-sleep
+album=go-the-ph-to-sleep
 track={track}
 date={year}
 genre=Podcast
@@ -63,7 +63,7 @@ file_meta = open(os.path.join(directory, 'metadata'), 'w')
 
 file_meta.write(HEADER.format(date=date, track=track, year=year))
 
-text = "Welcome to robo p h, we have {0} papers today, so let's get started! [[slnc 2000]]".format(len(latest_articles))
+text = "Welcome to go the PH to sleep, we have {0} papers today, so get cosy! [[slnc 2000]]".format(len(latest_articles))
 voice = random.choice(VOICES)
 length = speak(text, voice, os.path.join(directory, 'intro.aiff'))
 add_chapter(file_meta, 'Intro', length)
@@ -107,8 +107,8 @@ print("Converting to M4A")
 subprocess.call('ffmpeg -i {0}/combined2.mp3 -strict -2  -b:a 50k {1}.m4a'.format(directory, date), shell=True, stdout=f_log, stderr=f_log)
 
 print("Adding album art")
-subprocess.call('AtomicParsley {0}.m4a --artwork robo-ph-cover_art.jpg'.format(date), shell=True, stdout=f_log, stderr=f_log)
-subprocess.call('AtomicParsley {0}.m4a --artwork robo-ph-cover_art.jpg --overWrite'.format(date), shell=True, stdout=f_log, stderr=f_log)
+subprocess.call('AtomicParsley {0}.m4a --artwork gothephtosleep-cover_art.jpg'.format(date), shell=True, stdout=f_log, stderr=f_log)
+subprocess.call('AtomicParsley {0}.m4a --artwork gothephtosleep-cover_art.jpg --overWrite'.format(date), shell=True, stdout=f_log, stderr=f_log)
 
 f_log.close()
 
@@ -132,8 +132,8 @@ template = open('rss/template.rss', 'r').read()
 with open('rss/{0}.rss'.format(date), 'w') as f:
     f.write(template.format(date=date, filename=date + '.m4a', pubdate=pubdate, duration=duration))
 
-concatenate_files(['rss/header.rss'] + sorted(glob.glob('rss/????-??-??.rss')) + ['rss/footer.rss'], 'rss/combined.rss')
+concatenate_files(['rss/header.rss'] + sorted(glob.glob('rss/????-??-??.rss')) + ['rss/footer.rss'], 'rss/gothephtosleep.rss')
 
 shutil.copy(date + '.m4a', os.path.join(DROPBOX_DIR, date + '.m4a'))
-shutil.copy('rss/combined.rss', os.path.join(DROPBOX_DIR, 'roboph.rss'))
-subprocess.call('git add rss/combined.rss ; git commit rss/combined.rss', shell=True)
+shutil.copy('rss/gothephtosleep.rss', os.path.join(DROPBOX_DIR, 'gothephtosleep.rss'))
+subprocess.call('git add rss/gothephtosleep.rss ; git commit rss/gothephtosleep.rss', shell=True)
