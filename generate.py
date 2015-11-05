@@ -61,7 +61,8 @@ file_meta = open(os.path.join(directory, 'metadata'), 'w')
 file_meta.write(HEADER.format(date=date, track=track, year=year))
 
 text = "Welcome to robo p h, we have {0} papers today, so let's get started!".format(len(latest_articles))
-length = speak(text, 'jill.premium', os.path.join(directory, 'intro.aiff'))
+voice = random.choice(VOICES)
+length = speak(text, voice, os.path.join(directory, 'intro.aiff'))
 add_chapter(file_meta, 'Intro', length)
 file_list.write("file 'intro.aiff'\n")
 
@@ -77,10 +78,16 @@ for article in latest_articles:
     add_chapter(file_meta, article.identifier, length)
     file_list.write("file '{0}'\n".format(os.path.basename(output_file)))
 
-text = "This podcast was produced by Josh Peek, Tom Robeet Eye, Katie Mack, and Arna Karick, at dotAstronomy seven, in Sydney! Thank you for listening! Kill all humans."
-length = speak(text, 'Bruce', os.path.join(directory, 'outro.aiff'))
+text = "This podcast was produced by Josh Peek, Tom Robeet Eye, Katie Mack, and Arna Karick, at dotAstronomy seven, in Sydney! Thank you for listening!"
+voice = random.choice(VOICES)
+length = speak(text, voice, os.path.join(directory, 'outro.aiff'))
 add_chapter(file_meta, 'Outro', length)
 file_list.write("file 'outro.aiff'\n")
+
+text = "[[slnc 3000]] Kill. all. humans."
+length = speak(text, 'Bruce', os.path.join(directory, 'epilogue.aiff'))
+add_chapter(file_meta, 'Epilogue', length)
+file_list.write("file 'epilogue.aiff'\n")
 
 file_list.close()
 file_meta.close()
@@ -97,8 +104,8 @@ print("Converting to M4A")
 subprocess.call('ffmpeg -i {0}/combined2.mp3 -strict -2  {1}.m4a'.format(directory, date), shell=True, stdout=f_log, stderr=f_log)
 
 print("Adding album art")
-subprocess.call('AtomicParsley {0}/combined2.m4a --artwork robo-ph-cover_art.jpg', shell=True, stdout=f_log, stderr=f_log)
-subprocess.call('AtomicParsley {0}/combined2.m4a --artwork robo-ph-cover_art.jpg --overWrite', shell=True, stdout=f_log, stderr=f_log)
+subprocess.call('AtomicParsley {0}.m4a --artwork robo-ph-cover_art.jpg', shell=True, stdout=f_log, stderr=f_log)
+subprocess.call('AtomicParsley {0}.m4a --artwork robo-ph-cover_art.jpg --overWrite', shell=True, stdout=f_log, stderr=f_log)
 
 f_log.close()
 
