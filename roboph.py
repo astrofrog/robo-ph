@@ -20,10 +20,11 @@ JINGLE = {
     '[astro-ph.HE]': 'jingles/HE.aiff',
     '[astro-ph.IM]': 'jingles/IM.aiff',
     '[astro-ph.SR]': 'jingles/SR.aiff',
+    'other': 'jingles/other.aiff',
 }
 
 def add_jingle(output_file, subject):
-    jingle = JINGLE.get(subject, JINGLE['[astro-ph.CO]'])
+    jingle = JINGLE.get(subject, JINGLE['other'])
     with open('tmp_list', 'w') as file_list:
         file_list.write("file '{0}'\n".format(jingle))
         file_list.write("file '{0}'\n".format(output_file))
