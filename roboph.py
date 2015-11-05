@@ -55,7 +55,30 @@ def get_latest_articles():
         article.identifier = article.identifier.replace('arXiv:', '').split('v')[0]
 
         # Parse authors
-        article.authors = BeautifulSoup(article_xml.find('{http://purl.org/dc/elements/1.1/}creator').text, "html.parser").getText().split(', ')
+        authors = BeautifulSoup(article_xml.find('{http://purl.org/dc/elements/1.1/}creator').text, "html.parser").getText()
+
+        # Clean up authors, by removing affiliations in potentially nested
+        # parentheses.
+        while True:
+            start = None
+            end = None
+            paren = 0
+            for i in range(len(authors)):
+                if authors[i] == '(':
+                    paren += 1
+                    if paren == 1:
+                        start = i
+                if authors[i] == ')':
+                    paren -= 1
+                    if paren == 0:
+                        end = i
+                        break
+            if start is None:
+                break
+            else:
+                authors = authors[:start].strip() + " " + authors[end+1:].strip()
+
+        article.authors = authors.split(', ')
 
         # Parse main text
         article.text = BeautifulSoup(article_xml.find('{http://purl.org/rss/1.0/}description').text, "html.parser").getText().strip()
