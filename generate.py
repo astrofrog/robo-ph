@@ -136,4 +136,4 @@ concatenate_files(['rss/header.rss'] + sorted(glob.glob('rss/????-??-??.rss')) +
 
 shutil.copy(date + '.m4a', os.path.join(DROPBOX_DIR, date + '.m4a'))
 shutil.copy('rss/combined.rss', os.path.join(DROPBOX_DIR, 'roboph.rss'))
-subprocess('git add rss/combined.rss ; git commit rss/combined.rss')
+subprocess.call('git add rss/combined.rss ; git commit rss/combined.rss', shell=True)
