@@ -83,6 +83,9 @@ def get_latest_articles():
         # Parse main text
         article.text = BeautifulSoup(article_xml.find('{http://purl.org/rss/1.0/}description').text, "html.parser").getText().strip()
 
+        # Remove dollar signs
+        article.text = article.text.replace('$', '')
+
         articles.append(article)
 
     return articles
