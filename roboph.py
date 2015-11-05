@@ -105,14 +105,12 @@ class Article(object):
 
     @property
     def text_to_read(self):
-        if len(self.authors) > 3:
-            authors = ', '.join(self.authors[:3]) + ', and {0} other author'.format(len(self.authors) - 3)
-            if len(self.authors) > 4:
-                authors += "s"
-        elif len(self.authors) == 2:
-            authors = ' and '.join(self.authors)
+        if len(self.authors) > 4:
+            authors = ', '.join(self.authors[:3]) + ', and {0} other authors'.format(len(self.authors) - 3)
+        elif len(self.authors) > 1:
+            authors = ', '.join(self.authors[:-1]) + ' and ' + self.authors[-1]
         else:
-            authors = ', '.join(self.authors)
+            authors = self.authors[0]
         return "[[slnc 250]] {0}\n[[slnc 1000]] By {1}.[[slnc 1000]] \n{2} [[slnc 1000]] ".format(self.title, authors, self.text)
 
     def to_audio_file(self, output_file, voice):
