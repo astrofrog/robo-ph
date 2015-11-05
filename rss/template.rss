@@ -6,7 +6,7 @@
 
 <itunes:subtitle></itunes:subtitle>
 
-<itunes:summary><![CDATA[Titles and abstracts for {date}]]</itunes:summary>
+<itunes:summary><![CDATA[Titles and abstracts for {date}]]></itunes:summary>
 
 <itunes:image href="https://raw.githubusercontent.com/astrofrog/robo-ph/master/robo-ph-cover_art.jpg" />
 

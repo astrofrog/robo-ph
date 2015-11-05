@@ -65,7 +65,7 @@ length = speak(text, 'jill.premium', os.path.join(directory, 'intro.aiff'))
 add_chapter(file_meta, 'Intro', length)
 file_list.write("file 'intro.aiff'\n")
 
-for article in latest_articles[:3]:
+for article in latest_articles:
 
     # Select voice at random
     voice = random.choice(VOICES)
