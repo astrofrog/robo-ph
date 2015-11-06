@@ -45,3 +45,8 @@ Running
 ```
 python generate.py
 ```
+
+Credits/License
+===============
+
+The image of the LEGO figure was adapted from [this](https://www.flickr.com/photos/dunechaser/2429621774) image released under a [Creative Commons Attribution-NonCommercial-ShareAlike](https://creativecommons.org/licenses/by-nc-sa/2.0/) license by Andrew Becraft. All images used here that include the LEGO figure are released under the same license.
