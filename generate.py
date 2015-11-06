@@ -11,7 +11,7 @@ DROPBOX_DIR = os.path.expanduser("~/Dropbox/Public/robo-ph/")
 
 print(BANNER)
 
-track = 1
+track = 2
 now = datetime.datetime.now()
 date = now.strftime("%Y-%m-%d")
 year = now.year
