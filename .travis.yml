@@ -14,7 +14,7 @@ before_install:
 install:
 
     # Install dependencies
-    - conda install --yes requests beautifulsoup4
+    - conda install --yes requests beautifulsoup4 setuptools
     - conda install -c erik --yes pyobjc pyobjc-core pyobjc-framework-addressbook pyobjc-framework-applescriptkit pyobjc-framework-automator pyobjc-framework-cfnetwork pyobjc-framework-cocoa pyobjc-framework-coretext pyobjc-framework-quartz
     - brew install ffmpeg AtomicParsley
 
