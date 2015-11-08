@@ -1,0 +1,24 @@
+language: objective-c
+
+before_install:
+
+    # Install conda
+    - wget http://repo.continuum.io/miniconda/Miniconda-3.7.3-MacOSX-x86_64.sh -O miniconda.sh
+    - bash miniconda.sh -b -p $HOME/miniconda
+    - export PATH="$HOME/miniconda/bin:$PATH"
+
+    # Make conda environment
+    - conda create --yes -n test python=2.7
+    - source activate test
+
+install:
+
+    # Install dependencies
+    - conda install --yes requests beautifulsoup4
+    - pip install pyobjc
+    - brew install ffmpeg AtomicParsley
+
+script:
+
+    # Check available voices
+    - python -c 'from AppKit import NSSpeechSynthesizer; print(NSSpeechSynthesizer.availableVoices());'
