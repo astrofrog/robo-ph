@@ -15,7 +15,7 @@ install:
 
     # Install dependencies
     - conda install --yes requests beautifulsoup4
-    - pip install pyobjc
+    - conda install -c erik --yes pyobjc
     - brew install ffmpeg AtomicParsley
 
 script:
