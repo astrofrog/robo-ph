@@ -2,7 +2,7 @@ import os
 import glob
 import random
 import subprocess
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from roboph import VOICES, get_latest_articles, speak, BANNER
 
@@ -22,6 +22,9 @@ TMPDIR = os.path.join('tmp', DATE)
 TRACK = weekdays(START_DATE, NOW)
 
 FINALDIR = 'final'
+
+# Make sure voices are deterministic for a given date
+random.seed(DATE)
 
 if os.path.exists(TMPDIR):
     raise ValueError("Directory {0} already exists".format(TMPDIR))
@@ -132,12 +135,12 @@ def concatenate_files(filenames, output_file):
 print("Creating RSS entry")
 
 # Get GMT publication date
-now = datetime.datetime.utcnow()  # GMT
+now = datetime.utcnow()  # GMT
 pubdate = now.strftime("%a, %-d %b %Y %H:%M:%S GMT")
 
 # Get duration in minutes:seconds
-delta = datetime.timedelta(seconds=total_length / 1000)
-duration = (datetime.datetime(1900,1,1) + delta).strftime("%H:%M:%S")
+delta = timedelta(seconds=total_length / 1000)
+duration = (datetime(1900,1,1) + delta).strftime("%H:%M:%S")
 
 template = open('rss/template.rss', 'r').read()
 with open('rss/{0}.rss'.format(DATE), 'w') as f:
