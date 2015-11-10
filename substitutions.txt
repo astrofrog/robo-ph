@@ -1,3 +1,13 @@
 # Before ; After
 hii region ; H2 region
 \arcsec ; arcseconds
+0" ; 0 arcseconds
+1" ; 1 arcseconds
+2" ; 2 arcseconds
+3" ; 3 arcseconds
+4" ; 4 arcseconds
+5" ; 5 arcseconds
+6" ; 6 arcseconds
+7" ; 7 arcseconds
+8" ; 8 arcseconds
+9" ; 9 arcseconds
