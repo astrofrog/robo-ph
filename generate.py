@@ -7,8 +7,6 @@ import subprocess
 
 from roboph import VOICES, get_latest_articles, speak, BANNER
 
-DROPBOX_DIR = os.path.expanduser("~/Dropbox/Public/robo-ph/")
-
 print(BANNER)
 
 track = 3
@@ -133,7 +131,3 @@ with open('rss/{0}.rss'.format(date), 'w') as f:
     f.write(template.format(date=date, filename=date + '.m4a', pubdate=pubdate, duration=duration))
 
 concatenate_files(['rss/header.rss'] + sorted(glob.glob('rss/????-??-??.rss')) + ['rss/footer.rss'], 'rss/combined.rss')
-
-shutil.copy(date + '.m4a', os.path.join(DROPBOX_DIR, date + '.m4a'))
-shutil.copy('rss/combined.rss', os.path.join(DROPBOX_DIR, 'roboph.rss'))
-subprocess.call('git add rss/combined.rss ; git commit rss/combined.rss', shell=True)
