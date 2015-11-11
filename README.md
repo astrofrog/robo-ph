@@ -28,6 +28,18 @@ if you don't have conda, install with:
 pip install pyobjc requests beautifulsoup4
 ```
 
+Voices
+------
+
+On MacOS X, you will need the following optional voices:
+
+* Lee
+* Fiona
+* Emily
+* Alex
+* Tom
+* Jill
+* Sangeeta
 
 Other
 -----
