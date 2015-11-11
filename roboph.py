@@ -131,7 +131,6 @@ def speak(text, voice, output_file):
     ve = NSSpeechSynthesizer.alloc().init()
 
     ve.setVoice_('com.apple.speech.synthesis.voice.' + voice)
-    ve.setRate_(200)
     ve.startSpeakingString_toURL_(text, NSURL.fileURLWithPath_(output_file))
     while ve.isSpeaking():
         pass
