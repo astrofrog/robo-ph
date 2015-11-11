@@ -50,7 +50,7 @@ Other
 If you have MacPorts, install these with:
 
 ```
-sudo apt-get install atomicparsley ffmpeg
+sudo port install atomicparsley ffmpeg
 ```
 
 Running
