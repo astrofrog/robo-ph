@@ -12,6 +12,7 @@ VALID_VOICES = [str(x.replace('com.apple.speech.synthesis.voice.', '')) for x in
 VOICES =['lee.premium', 'fiona.premium', 'emily.premium', 'Alex', 'tom.premium', 'jill.premium', 'sangeeta.premium']
 
 ARXIV_URL = "http://export.arxiv.org/rss/astro-ph"
+HEADERS = {'user-agent':'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:40.0) Gecko/20100101 Firefox/40.1'}
 
 JINGLE = {
     '[astro-ph.CO]': 'jingles/CO.aiff',
@@ -34,7 +35,7 @@ def add_jingle(output_file, subject):
 
 
 def get_latest_articles():
-    response = requests.get(ARXIV_URL)
+    response = requests.get(ARXIV_URL, headers=HEADERS)
     tree = ElementTree.fromstring(response.content)
     articles = []
     for article_xml in tree.findall('{http://purl.org/rss/1.0/}item'):
